@@ -10,18 +10,18 @@ GDPM is a gradient descent-based polarization minimization algorithm used to red
 
 We release two anonymized graph datasets, TwitterSmall and TwitterLarge, with ground-truth opinions, user interest and influence.  TwitterSmall contains more than 1000 nodes and TwitterLarge has more than 27,000 nodes (the previously largest publicly available dataset contains less than 550 nodes). For details of data collection and processing, please check Appendix B.1 in the [paper](THIS IS A LINK TO ARXIV).
 
-The datasets are in `main/data/`.  `TwitterLarge.txt` (`TwitterSmall.txt`) is the anonymized edge list. We provide 2 data formats `.jld` and `.csv` in the dataset. The code is written in Julia and it takes `.jld` as default data format. The `s.jld` and `opinion.csv` are the ground-truth opinions. `X.jld` and `user_interest.csv` are the user-to-topic matrices that encode users' interest information towards topics. `Y.jld` and `topic_influence.csv` is the topic-influence matrix that encodes users' influence scores among topics.  The two matrices are both row-stochastic.
+The datasets are in `main/data/`.  `TwitterLarge.txt` (`TwitterSmall.txt`) is the anonymized edge list. We provide 2 data formats `.jld` and `.csv` in the dataset. The code is written in Julia and it takes `.jld` as the default data format. The `s.jld` and `opinion.csv` are the ground-truth opinions. `X.jld` and `user_interest.csv` are the user-to-topic matrices that encode users' interest information towards topics. `Y.jld` and `topic_influence.csv` is the topic-influence matrix that encodes users' influence scores among topics.  The two matrices are both row-stochastic.
 
 The following table summarizes the dataset in two data formats.
 | Julia format | CSV format |  Description |
 |----------|----------|----------|
 | s.jld | opinion.csv| innate opinion data, vector |
-| X.jld | user_interest.csv | user intesest matrix |
+| X.jld | user_interest.csv | user interest matrix |
 | Y.jld | topic_influence.csv | topic influencer matrix|
 
 
-### Realworld dataset
-Real-world datasets are publicly available from [Network Data Repository](https://networkrepository.com/). Please check Appendix B.1 for details about how to generate synthetic opinion, user-interest and topic-influence matrices. In this project, we only provide  `Advogato.txt` in `/graph_data/` folder. 
+### Real-world dataset
+Real-world datasets are publicly available from [Network Data Repository](https://networkrepository.com/). In this project, we only provide  `Advogato.txt` in `/graph_data/` folder. Please check Appendix B.1 for details about how to generate synthetic opinion, user-interest and topic-influence matrices. 
 
 ### Random data
 We provide Erdős–Rényi random graphs for `Convex.jl` experiments. The data are located in `main/data/Random_*`.
@@ -48,12 +48,13 @@ Run the following command to generate synthetic innate opinion, user-topic matri
 
 ## Output
 
-The output results of experiments are saved in folder `./output`. The approximation error during optimization is saved in `/output/Errors/`. The `/output/XTs/` folder contains user_interest matrix after optimization. The `/output/Opts/` folder contains the intermediate result of polarization-disagreement index during optimization. The `/output/Logs/` folder contains output from  `main_GDPM_BLs.jl` and `main_simulation.jl`. The `/output/figs/` folder contains figures to visualize the aforementioned results. 
+The output results of experiments are saved in folder `output/`. The approximation error during optimization is saved in `output/Errors/`. The `output/XTs/` folder contains user_interest matrix after optimization. The `output/Opts/` folder contains the intermediate result of polarization-disagreement index during optimization. The `output/Logs/` folder contains output from  `main_GDPM_BLs.jl` and `main_simulation.jl`. The `output/figs/` folder contains figures to visualize the aforementioned results. 
 
 ## Convert data to CSV
-This project uses `.jld` file format to save all output results. In order to use those result  We also provide a tool to convert `.jld` files to `.csv` files. Run the following code:
+This project uses `.jld` file format to save all output results. In order to use those results in other programming languages,  we provide a tool to convert `.jld` files to `.csv` files. The following example shows how to use the tool:
 
 `julia convert2csv.jl "data/TwitterSmall/Y.jld" "data/TwitterSmall/topic_influence.csv"`
 
+where the `"data/TwitterSmall/Y.jld"` is the Julia data path and `"data/TwitterSmall/topic_influence.csv"` is the output file path.
 
 ## Citation
